@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "890854181832",
+    "firebase_url": "https://mjpilab.firebaseio.com",
+    "project_id": "mjpilab",
+    "storage_bucket": "mjpilab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890854181832:android:00b2015ed17a3d2e",
+        "android_client_info": {
+          "package_name": "th.in.androidthai.mj_pilab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890854181832-qp2dqrat31khhb442t9ag3956l3c4bef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQO1VmeLcd1VSX9gOTS14u3k4F07d12R8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890854181832-qp2dqrat31khhb442t9ag3956l3c4bef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

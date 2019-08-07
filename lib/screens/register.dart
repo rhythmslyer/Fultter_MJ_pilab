@@ -7,7 +7,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   //explicit
-
+  final formkey = GlobalKey<FormState>();
+  String nameString, emailString, passwordString;
   //method
 
   Widget nameText() {
@@ -24,6 +25,14 @@ class _RegisterState extends State<Register> {
         helperStyle: TextStyle(color: Colors.yellowAccent[700]),
         hintText: 'English Only',
       ),
+      validator: (String valuename) {
+        if (valuename.isEmpty) {
+          return 'Plese fill name in bank';
+        }
+      },
+      onSaved: (String value) {
+        nameString = value;
+      },
     );
   }
 
@@ -42,6 +51,14 @@ class _RegisterState extends State<Register> {
         helperStyle: TextStyle(color: Colors.yellowAccent[700]),
         hintText: 'email@mail.com',
       ),
+      validator: (String valueemail) {
+        if (!((valueemail.contains('@')) && (valueemail.contains('.')))) {
+          return 'Plese fill e-mail format';
+        }
+      },
+      onSaved: (String value) {
+        emailString = value;
+      },
     );
   }
 
@@ -59,13 +76,24 @@ class _RegisterState extends State<Register> {
         helperStyle: TextStyle(color: Colors.yellowAccent[700]),
         hintText: 'xxxxxx',
       ),
+      validator: (String value) {
+        if (value.length < 6) {
+          return 'Plese 6 chalector';
+        }
+      },
+      onSaved: (String value) {
+        passwordString = value;
+      },
     );
   }
 
   Widget groupText() {
-    return ListView(
-      padding: EdgeInsets.only(top: 50.0, left: 50.0, right: 50.0),
-      children: <Widget>[nameText(), emailText(), passwordText()],
+    return Form(
+      key: formkey,
+      child: ListView(
+        padding: EdgeInsets.only(top: 50.0, left: 50.0, right: 50.0),
+        children: <Widget>[nameText(), emailText(), passwordText()],
+      ),
     );
   }
 
@@ -74,7 +102,10 @@ class _RegisterState extends State<Register> {
       tooltip: 'Register',
       icon: Icon(Icons.cloud_upload),
       onPressed: () {
-        print('Save Register');
+        if (formkey.currentState.validate()) {
+          formkey.currentState.save();
+          print('Name : $nameString , E-Mail : $emailString , Password : $passwordString' );
+        }
       },
     );
   }
