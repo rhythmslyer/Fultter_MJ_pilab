@@ -2,6 +2,8 @@ import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
 import 'package:mj_pilab/main.dart';
+import 'package:mj_pilab/screens/authen.dart';
+import 'package:mj_pilab/screens/register.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,7 +27,11 @@ class _HomeState extends State<Home> {
           'Sign Up',
           style: TextStyle(color: Colors.black),
         ),
-        onPressed: () {},
+        onPressed: () {
+          var registerRount =
+              MaterialPageRoute(builder: (BuildContext context) => Register());
+          Navigator.of(context).push(registerRount);
+        },
       ),
       width: 200.0,
     );
@@ -42,7 +48,11 @@ class _HomeState extends State<Home> {
           'Sign In',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          var authenRount =
+              MaterialPageRoute(builder: (BuildContext context) => Authen());
+          Navigator.of(context).push(authenRount);
+        },
       ),
     );
   }
@@ -75,7 +85,8 @@ class _HomeState extends State<Home> {
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            colors: [Colors.white, Colors.black],radius: 1.5,
+            colors: [Colors.white, Colors.black],
+            radius: 1.5,
           ),
         ),
         child: Column(
