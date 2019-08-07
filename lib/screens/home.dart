@@ -15,11 +15,46 @@ class _HomeState extends State<Home> {
   double myh1 = 36.0;
 
   //Method
+
+  Widget signUpBtnHome() {
+    return Container(
+      child: OutlineButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        child: Text(
+          'Sign Up',
+          style: TextStyle(color: Colors.black),
+        ),
+        onPressed: () {},
+      ),
+      width: 200.0,
+    );
+  }
+
+  Widget signInBtnHome() {
+    return Container(
+      width: 200.0,
+      child: RaisedButton(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        color: Colors.black87,
+        child: Text(
+          'Sign In',
+          style: TextStyle(color: Colors.white),
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+
   Widget showAppname() {
     return Text(
       'MJ Putor',
       style: TextStyle(
-          fontSize: myh1, color: Colors.grey, fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),
+          fontSize: myh1,
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Montserrat'),
     );
   }
 
@@ -37,9 +72,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[showAppLogo(), showAppname()],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: [Colors.white, Colors.black],radius: 1.5,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            showAppLogo(),
+            showAppname(),
+            signInBtnHome(),
+            signUpBtnHome()
+          ],
+        ),
       ),
     );
   }
