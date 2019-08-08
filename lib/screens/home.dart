@@ -1,8 +1,10 @@
 import 'dart:ui' as prefix0;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mj_pilab/main.dart';
 import 'package:mj_pilab/screens/authen.dart';
+import 'package:mj_pilab/screens/my_services.dart';
 import 'package:mj_pilab/screens/register.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +19,23 @@ class _HomeState extends State<Home> {
   double myh1 = 36.0;
 
   //Method
+
+  @override
+  void initState() {
+    super.initState();
+    changeStatus();
+  }
+
+  Future<void> changeStatus() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      var myservicesrount =
+          MaterialPageRoute(builder: (BuildContext context) => MyServices());
+      Navigator.of(context)
+          .pushAndRemoveUntil(myservicesrount, (Route<dynamic> rount) => false);
+    }
+  }
 
   Widget signUpBtnHome() {
     return Container(

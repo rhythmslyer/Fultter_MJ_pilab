@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mj_pilab/screens/my_services.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -9,7 +11,12 @@ class _RegisterState extends State<Register> {
   //explicit
   final formkey = GlobalKey<FormState>();
   String nameString, emailString, passwordString;
+
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
   //method
+
+ 
 
   Widget nameText() {
     return TextFormField(
@@ -104,8 +111,60 @@ class _RegisterState extends State<Register> {
       onPressed: () {
         if (formkey.currentState.validate()) {
           formkey.currentState.save();
-          print('Name : $nameString , E-Mail : $emailString , Password : $passwordString' );
+
+          uploadvalueTofriebase();
+          setUpDisplayName();
+
+          print(
+              'Name : $nameString , E-Mail : $emailString , Password : $passwordString');
         }
+      },
+    );
+  }
+
+  Future<void> uploadvalueTofriebase() async {
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailString, password: passwordString)
+        .then((response) {
+      print('Register Success');
+    }).catchError((response) {
+      print('Registor Error : $response');
+
+      String title = response.code;
+      String desc = response.message;
+      myAlter(title, desc);
+    });
+  }
+
+  Future<void> setUpDisplayName() async {
+    await firebaseAuth.currentUser().then((response) {
+      UserUpdateInfo unserinfo = new UserUpdateInfo();
+      unserinfo.displayName = nameString;
+      response.updateProfile(unserinfo);
+      var myservicerount =
+          MaterialPageRoute(builder: (BuildContext context) => MyServices());
+      Navigator.of(context)
+          .pushAndRemoveUntil(myservicerount, (Route<dynamic> rount) => false);
+    });
+  }
+
+  void myAlter(String title, String massage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(massage),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }
